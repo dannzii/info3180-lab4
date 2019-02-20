@@ -33,12 +33,14 @@ def upload():
         abort(401)
 
     # Instantiate your form class
-    photoUpload = UploadForm()
+    photo_upload = UploadForm()
 
     # Validate file upload on submit
-    if request.method == 'POST':
+    if request.method == 'POST': #and photo_upload.validate_on_submit():
+        print(request.files['photo_test'])
+        app.logger.info('posted')
         # Get file data and save to your uploads folder
-        picture = photoUpload.photo.data
+        picture = photo_upload.photo_test.data
 
         filename = secure_filename(picture.filename)
         picture.save(os.path.join(
@@ -49,7 +51,8 @@ def upload():
         flash('File Saved', 'success')
         return redirect(url_for('home'))
 
-    return render_template('upload.html', form=photoUpload )
+    flash_errors(photo_upload)
+    return render_template('upload.html', form=photo_upload)
 
 
 @app.route('/login', methods=['POST', 'GET'])
