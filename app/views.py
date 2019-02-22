@@ -70,7 +70,7 @@ def login():
 
 def get_uploaded_images():
     uploads = []
-    for cwd, subdir, dirs, files in os.walk(app.config['UPLOAD_FOLDER']):
+    for subdir, dirs, files in os.walk(app.config['UPLOAD_FOLDER']):
         for file in files:
             if file.split('.')[-1] in allowed_uploads:
                 uploads.append(file)
