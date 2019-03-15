@@ -36,11 +36,12 @@ def upload():
     photo_upload = UploadForm()
 
     # Validate file upload on submit
-    if request.method == 'POST': #and photo_upload.validate_on_submit():
-        print(request.files['photo_test'])
-        app.logger.info('posted')
-        # Get file data and save to your uploads folder
-        picture = photo_upload.photo_test.data
+    if request.method == 'POST':
+        if photo_upload.validate_on_submit():
+            print(request.files['photo_test'])
+            app.logger.info('posted')
+            # Get file data and save to your uploads folder
+            picture = photo_upload.photo_test.data
 
         filename = secure_filename(picture.filename)
         picture.save(os.path.join(
